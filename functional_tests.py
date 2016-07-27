@@ -35,17 +35,23 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('Buy peacock feathers')
         # expect after press enter, page will reload and new item "Buy peacock feathers" available in the list
         inputbox.send_keys(Keys.ENTER)
+        
+        # import time
+        # time.sleep(10)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-                any(row.text == '1: Buy peacock feathers' for row in rows),
-                "New to-do item did not appear in table"
-        )
+        # self.assertTrue(
+        #     any(row.text == '1: Buy peacock feathers' for row in rows),
+        #     "New to-do item did not appear in table -- its text was:\n%s" % (table.text,
+        #     )
+        # )
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
         
         # text box invite add new item
         self.fail('Finish the test!')
         # add new item "Use peacock feathers to make a fly"
-
+        
         # The page updates again, and now shows both items on her list
 
         # Edith wonders whether the site will remember her list. Then she sees
