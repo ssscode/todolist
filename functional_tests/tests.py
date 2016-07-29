@@ -28,6 +28,15 @@ class NewVisitorTest(LiveServerTestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # check homepage for superlists
         self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+        
+        # She notices the input box is nicely centered
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=5
+        )
         
         # expect name To-Do list
         self.assertIn('To-Do', self.browser.title)
