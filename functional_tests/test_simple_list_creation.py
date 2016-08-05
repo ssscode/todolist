@@ -7,15 +7,6 @@ class NewVisitorTest(FunctionalTest):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # check homepage for superlists
         self.browser.get(self.server_url)
-        self.browser.set_window_size(1024, 768)
-        
-        # She notices the input box is nicely centered
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2,
-            512,
-            delta=5
-        )
         
         # expect name To-Do list
         self.assertIn('To-Do', self.browser.title)
@@ -23,7 +14,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn('To-Do', header_text)
         
         # invite for add item
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertEqual(
                 inputbox.get_attribute('placeholder'),
                 'Enter a to-do item'
@@ -40,7 +31,7 @@ class NewVisitorTest(FunctionalTest):
         
         # text box invite add new item
         # add new item "Use peacock feathers to make a fly"
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
         
@@ -63,7 +54,7 @@ class NewVisitorTest(FunctionalTest):
         
         # Francis starts a new list by entering a new item. He
         # is less interesting than Edith...
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         
